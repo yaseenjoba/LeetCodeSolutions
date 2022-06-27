@@ -29,7 +29,7 @@ public:
             // cout<<i.first<<endl;
             int j = k - i.first;
             if(i.first == j && i.second >=2)return true;
-            if(i.first != j&& freq.count(j))return true;
+            if(i.first != j && freq.count(j))return true;
         }
         return false;
     }
