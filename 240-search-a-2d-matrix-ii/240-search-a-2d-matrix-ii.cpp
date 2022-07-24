@@ -8,7 +8,7 @@ public:
             if(matrix[i][j] > target){
                 j--;
             }
-            else if(matrix[i][j] < target){
+            else{
                 i++;
             }
         }
