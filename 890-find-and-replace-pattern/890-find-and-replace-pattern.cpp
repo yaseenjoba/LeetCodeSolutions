@@ -1,8 +1,8 @@
 class Solution {
 public:
     bool check(string & str , string &p){
-        map<char , char>mm;       
-        map<char , char>mm1;
+        unordered_map<char , char>mm;       
+        unordered_map<char , char>mm1;
 
         for(int  i = 0 ; i < str.size() ; i++){
             if(mm.count(str[i])){
