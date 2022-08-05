@@ -1,28 +1,21 @@
 class Solution {
 public:
     int totalFruit(vector<int>& arr) {
-        map<int ,int>freq;/*O(1)*/
-        int l = 0  ,ans = 0;
-        for(int r = 0 ; r < arr.size(); r++){
+        unordered_map<int ,int>freq;/*O(1)*/
+        int l = 0 , unique = 0 ,ans =0;
+        for(int  r = 0 ; r < arr.size(); r++){
           freq[arr[r]]++;
-          if(freq.size() <= 2){
-              int cnt = 0;
-              for(auto i : freq){
-                  cnt+= i.second;
-              }
-              ans = max(ans , cnt);
-          }else{
-              while(freq.size() > 2){
-                if(freq[arr[l]] == 1){
-                    freq.erase(arr[l]);
-                }else {
-                    freq[arr[l]]--;
-                }
-                l++;
-              }
+          if(freq[arr[r]] == 1)unique++;
+          if(unique == 2){
+            ans = max(ans , r - l  + 1);
           }
-       
+          while(unique > 2){
+            freq[arr[l]]--;
+            if(freq[arr[l]] == 0)unique--;
+            l++;
+          }
+          ans = max(ans , r - l  + 1);
         }
-         return ans;
+        return ans;
     }
 };
