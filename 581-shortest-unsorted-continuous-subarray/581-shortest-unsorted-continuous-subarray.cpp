@@ -1,16 +1,17 @@
 class Solution {
 public:
-    int findUnsortedSubarray(vector<int>& nums) {
-        auto v = nums;
-        sort(nums.begin() , nums.end());
-        if(v == nums)return 0;
-        vector<int>freq(nums.size() , 0);
-        for(int i = 0 ; i < nums.size() ;i++){
-           freq[i] = nums[i] != v[i];
+    int findUnsortedSubarray(vector<int>& arr) {
+         int l = 0 , r = arr.size() - 1;;
+        while(r > 1 && arr[r] >= arr[r - 1])r--;
+        while(l < r && arr[l] <= arr[l + 1])l++;
+        if(r <= l)return 0;
+        int mi = 1e9  , mx = -1e9;
+        for(int i = l ; i<=r;i++){
+            mi = min(mi , arr[i]);
+            mx = max(mx , arr[i]);
         }
-        int first = 0 , sec = 0;
-        for(int i = 0 ; i < nums.size() ;i++)if(freq[i] == 1){first = i; break;}
-        for(int i = 0 ; i < nums.size() ;i++)if(freq[i] == 1){sec = i;}
-        return sec - first + 1;
+        while(l > 0 && arr[l -1] > mi)l--;
+        while(r < arr.size() - 1 && arr[r + 1] < mx)r++;
+        return r - l + 1;
     }
 };
