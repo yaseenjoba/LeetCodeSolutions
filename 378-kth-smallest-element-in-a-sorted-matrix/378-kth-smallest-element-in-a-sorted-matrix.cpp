@@ -1,29 +1,25 @@
 class Solution {
 public:
-    int kthSmallest(vector<vector<int>>& matrix, int k) {
-        int n = matrix.size();
-        int l = matrix[0][0] , r  = matrix[n - 1][n -1];
-        while(l  <  r){
-            int mid = l + (r - l)/2;
-            int c = count(matrix , n , mid);
-            if(c >= k){
-                r = mid;
-            }else l = mid + 1;
-        }
-        return l;
+  struct comp{
+   bool operator()(const pair<int, pair<int, int>> &x, const pair<int, pair<int, int>> &y) {
+      return x.first > y.first;
     }
-    int count(vector<vector<int>>& matrix,int n, int target){
-        int curr_row=n-1,curr_col=0,count=0;
-        while(curr_row>=0 && curr_col<n)
-        {
-            if(matrix[curr_row][curr_col]<=target)
-            {
-                count+=(curr_row+1);
-                curr_col++;
-            }
-            else
-                curr_row--;
+  };
+    int kthSmallest(vector<vector<int>>& lists, int k) {
+         int result = -1;
+    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, comp>
+            pq;    int j = 0 ;
+        for(auto i : lists){
+          pq.push({i[0] ,{ 0 ,j++}});
         }
-        return count;
+        while(k--){
+           pair<int, pair<int ,int>>p = pq.top();
+           pq.pop();
+           result = p.first;
+           if(p.second.first != lists[p.second.second].size() - 1){
+             pq.push(make_pair(lists[p.second.second][p.second.first + 1] ,make_pair(p.second.first + 1,  p.second.second)));
+           }
+        }
+    return result;
     }
 };
