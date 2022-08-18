@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minSetSize(vector<int>& arr) {
-        map<int ,int>mm;
+        unordered_map<int ,int>mm;
         for(auto i : arr)mm[i]++;
         vector<int>v;
         for(auto &i : mm){
