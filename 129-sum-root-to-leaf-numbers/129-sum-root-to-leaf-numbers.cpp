@@ -11,17 +11,15 @@
  */
 class Solution {
 public:
-     static int dfs(TreeNode* root , string str){
-       if(root == NULL)return 0;
-       if(root->left == NULL && root->right == NULL){
-         str+= root->val + '0';
-         return stoi(str);
-       }
-
-       str+= root->val +'0';
-       return  dfs(root->left , str) + dfs(root->right , str);
+     static int dfs(TreeNode* root , int sum){
+        if(root == NULL)return 0;
+        if(root->left  == NULL && root->right == NULL){
+          int ans = 10*sum + root->val;
+          return ans;
+        }
+         return  dfs(root->left , 10*sum + root->val) + dfs(root->right , 10*sum + root->val);
      }
     int sumNumbers(TreeNode* root) {
-         return dfs(root , "");
+         return dfs(root , 0);
     }
 };
