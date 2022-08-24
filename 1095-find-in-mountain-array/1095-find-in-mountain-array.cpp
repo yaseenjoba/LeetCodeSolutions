@@ -19,7 +19,6 @@ public:
           }else l = mid + 1;
         }
         int mo = l;
-        cout<<mo<<endl;
         l = 0 , r = mo;
         while(l < r){
           int mid = l + (r -l)/2;
