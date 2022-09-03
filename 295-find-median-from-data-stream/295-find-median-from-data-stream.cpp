@@ -3,22 +3,31 @@ using namespace __gnu_pbds;
 typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_multiset;
 class MedianFinder {
 public:
-    ordered_multiset s;
+    priority_queue<int> maxHeap;                           
+    priority_queue<int, vector<int>, greater<int>> minHeap;
     MedianFinder() {
-        s.clear();
     }
     
     void addNum(int num) {
-        s.insert(num);
+         if (maxHeap.empty() || maxHeap.top() >= num) {
+          maxHeap.push(num);
+        } else {
+          minHeap.push(num);
+        }
+         if (maxHeap.size() > minHeap.size() + 1) {
+          minHeap.push(maxHeap.top());
+          maxHeap.pop();
+        } else if (maxHeap.size() < minHeap.size()) {
+          maxHeap.push(minHeap.top());
+          minHeap.pop();
+        }
     }
     
     double findMedian() {
-        if(s.size() % 2 == 0){
-            int l = s.size()/2 - 1;
-            int r = s.size()/2;
-            return  1.0*(*s.find_by_order(l) + *s.find_by_order(r))/2.0;
+        if (maxHeap.size() == minHeap.size()) {
+          return maxHeap.top() / 2.0 + minHeap.top() / 2.0;
         }
-        return *s.find_by_order(s.size()/2);
+        return maxHeap.top();
     }
 };
 
