@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<vector<int>> findWinners(vector<vector<int>>& matches) {
-        map<int, int>deg;
+        unordered_map<int, int>deg;
         for(auto &i : matches){
             deg[i[1]]++;            
             deg[i[0]]=deg[i[0]] ;
@@ -15,6 +15,9 @@ public:
                 one.push_back(i.first);
             }
         }
+        sort(nothing.begin() , nothing.end());
+        sort(one.begin() , one.end());
+
         return {nothing, one};
         
     }
